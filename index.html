@@ -3,19 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Lake Digital — Professional Online Learning</title>
+  <title>Lake Digital — Navigate Your Future</title>
   
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="styles.css">
   
   <style>
-    /* --- LAKE DIGITAL BRANDING (OVERRIDE) --- */
     :root {
-      --lake-blue: #38bdf8; /* Новый основной цвет */
+      --lake-blue: #38bdf8;
       --lake-dark: #075985;
     }
 
-    /* ПЛАШКА ПРОМОКОДА */
     .promo-wrapper { position: relative; z-index: 1000; }
     
     .promo-banner {
@@ -55,7 +53,6 @@
 
     .promo-code { color: var(--lake-blue); font-weight: 800; font-size: 1.3rem; }
 
-    /* ССЫЛКИ И КНОПКИ */
     .modal-body a, .footer-links a, .checkbox-container-inline label a {
       color: var(--lake-blue) !important;
       font-weight: 600;
@@ -64,6 +61,7 @@
     .btn-primary {
       background: linear-gradient(90deg, var(--lake-blue), #60a5fa) !important;
       color: #0f172a !important;
+      border: none;
     }
 
     .promo-hint {
@@ -74,13 +72,12 @@
       font-size: 0.75rem;
       text-transform: uppercase;
       font-weight: 800;
+      display: inline-block;
+      margin-bottom: 10px;
     }
 
-    .course-card.featured {
-      border-color: var(--lake-blue) !important;
-    }
+    .course-card.featured { border-color: var(--lake-blue) !important; }
 
-    /* HERO ОБЛОЖКА ПОД LAKE DIGITAL */
     .hero {
       background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), 
                   url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1920');
@@ -88,6 +85,37 @@
       background-position: center;
       padding: 100px 0;
     }
+
+    .embedded-checkout {
+      display: none;
+      background: rgba(0,0,0,0.2);
+      border-radius: 12px;
+      padding: 15px;
+      margin-top: 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+      text-align: left;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .promo-input-group { display: flex; gap: 8px; margin-top: 8px; margin-bottom: 5px; }
+    .promo-input-group input {
+      flex: 1; padding: 10px; background: #1e293b; border: 1px solid #334155;
+      color: white; border-radius: 6px; outline: none; font-family: Inter;
+    }
+    .promo-input-group input:focus { border-color: var(--lake-blue); }
+    .promo-input-group button {
+      padding: 0 15px; background: var(--lake-blue); color: #0f172a;
+      border: none; font-weight: bold; border-radius: 6px; cursor: pointer;
+    }
+
+    .checkbox-container-inline { display: flex; align-items: flex-start; gap: 10px; margin-top: 15px; margin-bottom: 15px; }
+    .checkbox-container-inline input { margin-top: 4px; cursor: pointer; }
+    .checkbox-container-inline label { font-size: 0.85rem; color: #9aa4b2; line-height: 1.4; }
 
     @keyframes slideDown {
       from { opacity: 0; transform: translateY(-10px); }
@@ -147,9 +175,9 @@
         <div class="pricing-grid">
           
           <div class="course-card">
-            <h3>Digital Basics</h3>
+            <h3>Lake Essentials</h3>
             <div class="promo-hint">Use code LAKE230 for 8% OFF</div>
-            <div class="price">€250</div>
+            <div class="price" id="price-display-basics">€250</div>
             <ul class="features">
               <li>Fundamentals of web design (HTML/CSS)</li>
               <li>Access to digital resource library</li>
@@ -157,19 +185,44 @@
               <li style="color:var(--lake-blue);">Instant digital delivery</li>
             </ul>
             <button class="btn btn-primary" onclick="initCheckout('basics')">Get Started</button>
+            
+            <div class="embedded-checkout" id="checkout-basics">
+              <label style="font-size: 0.85rem; color: #9aa4b2;">Have a promo code?</label>
+              <div class="promo-input-group">
+                <input type="text" id="promo-input-basics" placeholder="Enter code...">
+                <button onclick="applyPromo()">Apply</button>
+              </div>
+              <p id="promo-msg-basics" style="font-size: 0.85rem; margin: 5px 0 15px 0;"></p>
+              
+              <div class="checkbox-container-inline">
+                <input type="checkbox" id="agree-basics" onchange="togglePayPal('basics')" />
+                <label for="agree-basics">I agree to the <a href="#" onclick="document.getElementById('termsModal').style.display='block'; return false;">Terms</a> and <a href="#" onclick="document.getElementById('privacyModal').style.display='block'; return false;">Privacy Policy</a></label>
+              </div>
+              
+              <div id="paypal-container-basics" style="display: none;"></div>
+            </div>
           </div>
 
           <div class="course-card featured">
             <div class="badge">Most Popular</div>
-            <h3>Full Stack Developer</h3>
+            <h3>Deep Dive Developer</h3>
             <div class="price">€300</div>
             <ul class="features">
-              <li>Everything in Digital Basics +</li>
+              <li>Everything in Lake Essentials +</li>
               <li>JavaScript & React.js fundamentals</li>
               <li>Backend architecture with Node.js</li>
               <li style="color:var(--lake-blue);">Lifetime updates included</li>
             </ul>
             <button class="btn btn-primary" onclick="initCheckout('pro')">Get Started</button>
+            
+            <div class="embedded-checkout" id="checkout-pro">
+              <div class="checkbox-container-inline">
+                <input type="checkbox" id="agree-pro" onchange="togglePayPal('pro')" />
+                <label for="agree-pro">I agree to the <a href="#" onclick="document.getElementById('termsModal').style.display='block'; return false;">Terms</a> and <a href="#" onclick="document.getElementById('privacyModal').style.display='block'; return false;">Privacy Policy</a></label>
+              </div>
+              
+              <div id="paypal-container-pro" style="display: none;"></div>
+            </div>
           </div>
 
         </div>
@@ -178,16 +231,24 @@
 
     <section id="faq" class="section alt">
       <div class="container">
-        <h2 class="section-title">FAQ</h2>
+        <h2 class="section-title">Frequently Asked Questions</h2>
         <div style="max-width: 800px; margin: 0 auto; text-align: left;">
+          
           <div style="background: #0b1624; padding: 20px; border-radius: 12px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05);">
-            <h4 style="color: white; margin-top: 0;">How is Lake Digital different?</h4>
-            <p style="color: #9aa4b2; margin: 0;">We focus on structured, high-intensity learning materials that you can keep forever. No subscriptions, no fluff.</p>
+            <h4 style="color: white; margin-top: 0; margin-bottom: 10px;">How is Lake Digital different?</h4>
+            <p style="color: #9aa4b2; font-size: 0.9rem; margin: 0;">We focus on structured, high-intensity learning materials that you can keep forever. No subscriptions, no fluff. Just pure, actionable knowledge.</p>
           </div>
-          <div style="background: #0b1624; padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
-            <h4 style="color: white; margin-top: 0;">Support contact?</h4>
-            <p style="color: #9aa4b2; margin: 0;">Reach out to us at <span style="color: var(--lake-blue);">lake.digital.admin@gmail.com</span></p>
+          
+          <div style="background: #0b1624; padding: 20px; border-radius: 12px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05);">
+            <h4 style="color: white; margin-top: 0; margin-bottom: 10px;">Do I need prior experience?</h4>
+            <p style="color: #9aa4b2; font-size: 0.9rem; margin: 0;">Not at all. The <strong>Lake Essentials</strong> course is designed for absolute beginners. We guide you step-by-step from zero to your first functional project.</p>
           </div>
+
+          <div style="background: #0b1624; padding: 20px; border-radius: 12px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05);">
+            <h4 style="color: white; margin-top: 0; margin-bottom: 10px;">How exactly do I get the course?</h4>
+            <p style="color: #9aa4b2; font-size: 0.9rem; margin: 0;">Delivery is instant. Right after your payment is securely processed by PayPal, you will be redirected to a secure download page to access your PDF materials.</p>
+          </div>
+
         </div>
       </div>
     </section>
@@ -200,29 +261,111 @@
     </section>
   </main>
 
+  <div id="termsModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="document.getElementById('termsModal').style.display='none'">&times;</span>
+      <h2>Terms and Conditions</h2>
+      <div class="modal-body">
+        <p>Welcome to <strong>Lake Digital</strong>. By accessing our website, you agree to these terms.</p>
+        <p>We provide digital educational materials. Access is granted online immediately upon purchase.</p>
+        <p>Contact <a href="mailto:lake.digital.admin@gmail.com">lake.digital.admin@gmail.com</a> for any support needs.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="privacyModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="document.getElementById('privacyModal').style.display='none'">&times;</span>
+      <h2>Privacy Policy</h2>
+      <div class="modal-body">
+        <p>We collect only what is necessary to deliver your purchase and maintain security audit logs.</p>
+        <p>Payment info is processed securely by PayPal; we do not store card details.</p>
+      </div>
+    </div>
+  </div>
+
   <footer class="site-footer">
     <div class="container">
       <div class="footer-inner">
         <div class="footer-brand"><span>Lake Digital</span> © 2026</div>
         <div class="footer-links">
-          <a href="#" onclick="return false;">Terms and Conditions</a>
+          <a href="#" onclick="document.getElementById('termsModal').style.display='block'; return false;">Terms and Conditions</a>
           <span class="separator">|</span>
-          <a href="#" onclick="return false;">Privacy Policy</a>
+          <a href="#" onclick="document.getElementById('privacyModal').style.display='block'; return false;">Privacy Policy</a>
         </div>
       </div>
     </div>
   </footer>
 
   <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=EUR"></script>
-  <script src="script.js"></script>
   
   <script>
+    let priceBasics = 250;
+    const pricePro = 300;
+
     function copyPromo() {
       navigator.clipboard.writeText("LAKE230").then(function() {
         var btn = document.getElementById("copyPromoBtn");
         btn.innerText = "Copied! ✔";
         setTimeout(function() { btn.innerText = "Copy Code"; }, 2000);
       });
+    }
+
+    function initCheckout(plan) {
+      const checkoutBlock = document.getElementById('checkout-' + plan);
+      checkoutBlock.style.display = (checkoutBlock.style.display === 'block') ? 'none' : 'block';
+    }
+
+    function applyPromo() {
+      const codeInput = document.getElementById('promo-input-basics').value.trim().toUpperCase();
+      const msg = document.getElementById('promo-msg-basics');
+      const priceDisplay = document.getElementById('price-display-basics');
+
+      if (codeInput === 'LAKE230') {
+        priceBasics = 230;
+        msg.innerText = "Promo code applied! Price reduced to €230.";
+        msg.style.color = "#38bdf8"; 
+        priceDisplay.innerText = "€230";
+        if (document.getElementById('agree-basics').checked) togglePayPal('basics');
+      } else {
+        msg.innerText = "Invalid promo code.";
+        msg.style.color = "#ef4444"; 
+      }
+    }
+
+    function togglePayPal(plan) {
+      const containerId = 'paypal-container-' + plan;
+      const container = document.getElementById(containerId);
+      const isChecked = document.getElementById('agree-' + plan).checked;
+
+      container.innerHTML = ''; 
+
+      if (isChecked) {
+        container.style.display = 'block';
+        let amountToCharge = plan === 'basics' ? priceBasics : pricePro;
+
+        paypal.Buttons({
+          createOrder: function(data, actions) {
+            return actions.order.create({
+              purchase_units: [{
+                amount: { value: amountToCharge.toString(), currency_code: 'EUR' },
+                description: plan === 'basics' ? 'Lake Essentials' : 'Deep Dive Developer'
+              }]
+            });
+          },
+          onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+              window.location.href = 'access-digital-basics/index.html';
+            });
+          }
+        }).render('#' + containerId);
+      } else {
+        container.style.display = 'none';
+      }
+    }
+
+    window.onclick = function(event) {
+      if (event.target.classList.contains('modal')) event.target.style.display = "none";
     }
   </script>
 </body>
