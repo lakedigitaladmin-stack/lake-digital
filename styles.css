@@ -1,82 +1,264 @@
-// --- LAKE DIGITAL PAYMENT SCRIPT ---
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap');
 
-let priceBasics = 250;
-const pricePro = 300;
-let promoApplied = false;
-
-// Показать блок оплаты при клике на "Get Started"
-function initCheckout(plan) {
-  const checkoutBlock = document.getElementById('checkout-' + plan);
-  if (checkoutBlock.style.display === 'block') {
-      checkoutBlock.style.display = 'none';
-  } else {
-      checkoutBlock.style.display = 'block';
-  }
+:root {
+  --bg-color: #0f172a;
+  --card-bg: #1e293b;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --accent: #38bdf8; /* Фирменный цвет Lake Digital */
+  --border-color: rgba(255, 255, 255, 0.1);
 }
 
-// Логика проверки промокода для тарифа Basics
-function applyPromo() {
-  const codeInput = document.getElementById('promo-input-basics').value.trim().toUpperCase();
-  const msg = document.getElementById('promo-msg-basics');
-  const priceDisplay = document.getElementById('price-display-basics');
+* { box-sizing: border-box; }
 
-  if (codeInput === 'LAKE230') {
-    priceBasics = 230;
-    promoApplied = true;
-    msg.innerText = "Promo code applied! Price reduced to €230.";
-    msg.style.color = "#38bdf8"; // Фирменный цвет Lake Digital
-    priceDisplay.innerText = "€230";
-    
-    // Если галочка согласия уже стоит, перерисовываем кнопку PayPal с новой ценой
-    if (document.getElementById('agree-basics').checked) {
-        togglePayPal('basics');
-    }
-  } else {
-    msg.innerText = "Invalid promo code.";
-    msg.style.color = "#ef4444"; // Красный цвет ошибки
-  }
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-// Появление кнопок PayPal после согласия с условиями (Terms & Privacy)
-function togglePayPal(plan) {
-  const containerId = 'paypal-container-' + plan;
-  const container = document.getElementById(containerId);
-  const isChecked = document.getElementById('agree-' + plan).checked;
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
-  // Очищаем контейнер перед каждой отрисовкой, чтобы кнопки не дублировались
-  container.innerHTML = ''; 
+/* HEADER */
+.site-header {
+  background: var(--bg-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 
-  if (isChecked) {
-    container.style.display = 'block';
-    
-    // Определяем финальную сумму в зависимости от выбранного тарифа
-    let amountToCharge = plan === 'basics' ? priceBasics : pricePro;
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    paypal.Buttons({
-      createOrder: function(data, actions) {
-        return actions.order.create({
-          purchase_units: [{
-            amount: { 
-                value: amountToCharge.toString(),
-                currency_code: 'EUR'
-            },
-            description: plan === 'basics' ? 'Lake Digital: Basics Course' : 'Lake Digital: Full Stack Developer'
-          }]
-        });
-      },
-      onApprove: function(data, actions) {
-        return actions.order.capture().then(function(details) {
-          // УСПЕШНАЯ ОПЛАТА: Перенаправление клиента к материалам курса
-          window.location.href = 'access-digital-basics/index.html';
-        });
-      },
-      onError: function(err) {
-        console.error('PayPal Error:', err);
-        alert('Payment could not be processed. Please try again or contact support@lake.digital.admin@gmail.com');
-      }
-    }).render('#' + containerId);
-    
-  } else {
-    container.style.display = 'none';
-  }
+.nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-left: 24px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.nav a:hover {
+  color: var(--text-main);
+}
+
+/* HERO SECTION */
+.hero {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+  letter-spacing: -1px;
+}
+
+.hero .lead {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* SECTIONS */
+.section {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.section.alt {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 40px;
+}
+
+/* PRICING & COURSE CARDS */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.course-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 40px 30px;
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.course-card.featured {
+  border: 2px solid var(--accent);
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+}
+
+.course-card h3 {
+  font-size: 1.5rem;
+  margin-top: 0;
+}
+
+.badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: #0f172a;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.price {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 20px 0;
+}
+
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px 0;
+  text-align: left;
+}
+
+.features li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.features li:last-child {
+  border-bottom: none;
+}
+
+/* BUTTONS */
+.btn {
+  display: inline-block;
+  width: 100%;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 800;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #0f172a;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+/* MODAL WINDOWS (TERMS/PRIVACY) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(15, 23, 42, 0.9);
+  overflow: auto;
+}
+
+.modal-content {
+  background-color: var(--card-bg);
+  margin: 10% auto;
+  padding: 40px;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  width: 90%;
+  max-width: 700px;
+  position: relative;
+  color: var(--text-muted);
+}
+
+.modal-content h2, .modal-content h3 {
+  color: var(--text-main);
+}
+
+.close {
+  color: var(--text-muted);
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: var(--text-main);
+}
+
+/* FOOTER */
+.site-footer {
+  padding: 40px 0;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  margin-top: 40px;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.footer-brand span {
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+  color: var(--text-main);
+}
+
+.separator {
+  margin: 0 10px;
+  color: var(--border-color);
 }
