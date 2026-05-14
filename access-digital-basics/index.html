@@ -9,23 +9,20 @@
   <link rel="stylesheet" href="../styles.css">
   
   <style>
-    /* Стили специально для страницы успешной оплаты */
     .access-container {
       max-width: 800px;
       margin: 80px auto;
       padding: 40px;
-      background: var(--card-bg);
-      border: 1px solid var(--accent);
+      background: #1e293b;
+      border: 1px solid #38bdf8;
       border-radius: 16px;
       text-align: center;
-      box-shadow: 0 10px 40px rgba(56, 189, 248, 0.1);
     }
     
     .success-icon {
-      width: 80px;
-      height: 80px;
+      width: 80px; height: 80px;
       background: rgba(56, 189, 248, 0.1);
-      color: var(--accent);
+      color: #38bdf8;
       border-radius: 50%;
       display: inline-flex;
       align-items: center;
@@ -34,12 +31,7 @@
       margin-bottom: 20px;
     }
 
-    .download-list {
-      text-align: left;
-      margin: 40px 0;
-      padding: 0;
-      list-style: none;
-    }
+    .download-list { text-align: left; margin: 40px 0; padding: 0; list-style: none; }
 
     .download-item {
       background: #0f172a;
@@ -52,55 +44,30 @@
       align-items: center;
     }
 
-    .download-info h4 {
-      margin: 0 0 5px 0;
-      color: #fff;
-    }
-
-    .download-info p {
-      margin: 0;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
     .btn-download {
-      background: var(--accent);
+      background: #38bdf8;
       color: #0f172a;
       padding: 10px 20px;
       border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
-      transition: opacity 0.2s;
-    }
-
-    .btn-download:hover {
-      opacity: 0.9;
     }
 
     .security-notice {
-      margin-top: 40px;
       padding: 15px;
       background: rgba(239, 68, 68, 0.1);
       border-left: 4px solid #ef4444;
-      color: #f8fafc;
-      font-size: 0.85rem;
       text-align: left;
+      font-size: 0.85rem;
     }
   </style>
 </head>
 <body>
 
   <header class="site-header">
-    <div class="container header-inner">
+    <div class="container">
       <div class="brand" style="display: flex; align-items: center; gap: 12px;">
-        <svg width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="40" height="40" rx="8" fill="#1e3a8a"/>
-          <path d="M10 25C15 25 15 20 20 20C25 20 25 25 30 25" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/>
-          <path d="M10 30C15 30 15 25 20 25C25 25 25 30 30 30" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
-          <path d="M12 10V22" stroke="white" stroke-width="3" stroke-linecap="round"/>
-          <path d="M12 22H20" stroke="white" stroke-width="3" stroke-linecap="round"/>
-        </svg>
-        <span style="font-weight: 800; font-size: 20px; color: white; letter-spacing: -0.5px; text-transform: uppercase;">Lake Digital</span>
+        <span style="font-weight: 800; color: white; text-transform: uppercase;">Lake Digital</span>
       </div>
     </div>
   </header>
@@ -108,33 +75,30 @@
   <main class="container">
     <div class="access-container">
       <div class="success-icon">✓</div>
-      <h1 style="margin-top: 0;">Payment Successful!</h1>
-      <p style="color: var(--text-muted); font-size: 1.1rem;">Welcome to <strong>Digital Basics</strong>. Your transaction has been verified and your access is granted.</p>
+      <h1>Your Access is Ready</h1>
+      <p style="color: #94a3b8;">Thank you for choosing <strong>Lake Essentials</strong>.</p>
 
       <ul class="download-list">
         <li class="download-item">
-          <div class="download-info">
-            <h4>Module 1: HTML & CSS Fundamentals</h4>
-            <p>PDF Guide • 45 Pages • 2.4 MB</p>
+          <div>
+            <h4 style="margin:0; color:#fff;">Lake Essentials: Part 1</h4>
+            <p style="margin:0; font-size:0.8rem; color:#94a3b8;">PDF Guide • 2.4 MB</p>
           </div>
-          <a href="#" class="btn-download">Download PDF</a>
+          <a href="guide-part1.pdf" download class="btn-download">Download</a>
         </li>
         <li class="download-item">
-          <div class="download-info">
-            <h4>Module 2: Responsive Web Design</h4>
-            <p>PDF Guide • 38 Pages • 1.8 MB</p>
+          <div>
+            <h4 style="margin:0; color:#fff;">Lake Essentials: Part 2</h4>
+            <p style="margin:0; font-size:0.8rem; color:#94a3b8;">PDF Guide • 1.8 MB</p>
           </div>
-          <a href="#" class="btn-download">Download PDF</a>
+          <a href="guide-part2.pdf" download class="btn-download">Download</a>
         </li>
       </ul>
 
       <div class="security-notice">
-        <strong>Security Notice:</strong> This secure link was generated for your purchase. Do not share this URL or distribute the downloaded files. All materials are protected by copyright.
+        <strong>Security Notice:</strong> Do not share this URL. Your access is linked to your transaction.
       </div>
-      
-      <p style="margin-top: 30px; font-size: 0.9rem; color: var(--text-muted);">Need help? Contact <a href="mailto:lake.digital.admin@gmail.com" style="color: var(--accent);">lake.digital.admin@gmail.com</a></p>
     </div>
   </main>
-
 </body>
 </html>
