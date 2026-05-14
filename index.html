@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lake Digital — Professional Online Learning</title>
+  
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  
+  <style>
+    /* --- LAKE DIGITAL BRANDING (OVERRIDE) --- */
+    :root {
+      --lake-blue: #38bdf8; /* Новый основной цвет */
+      --lake-dark: #075985;
+    }
+
+    /* ПЛАШКА ПРОМОКОДА */
+    .promo-wrapper { position: relative; z-index: 1000; }
+    
+    .promo-banner {
+      background: linear-gradient(90deg, #0f172a, #1e3a8a);
+      color: #ffffff;
+      text-align: center;
+      padding: 12px 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-bottom: 2px solid var(--lake-blue);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .promo-badge {
+      background: var(--lake-blue);
+      color: #0f172a;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+    }
+
+    .promo-dropdown {
+      display: none;
+      background: #0f172a;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid var(--lake-blue);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .promo-dropdown.active { display: block; animation: slideDown 0.2s ease-out; }
+
+    .promo-code { color: var(--lake-blue); font-weight: 800; font-size: 1.3rem; }
+
+    /* ССЫЛКИ И КНОПКИ */
+    .modal-body a, .footer-links a, .checkbox-container-inline label a {
+      color: var(--lake-blue) !important;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--lake-blue), #60a5fa) !important;
+      color: #0f172a !important;
+    }
+
+    .promo-hint {
+      color: var(--lake-blue);
+      background: rgba(56, 189, 248, 0.1);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .course-card.featured {
+      border-color: var(--lake-blue) !important;
+    }
+
+    /* HERO ОБЛОЖКА ПОД LAKE DIGITAL */
+    .hero {
+      background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), 
+                  url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1920');
+      background-size: cover;
+      background-position: center;
+      padding: 100px 0;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="promo-wrapper">
+    <div class="promo-banner" onclick="document.getElementById('promoDropdown').classList.toggle('active')">
+      <span class="promo-badge">Lake Welcome</span>
+      <span>Get 8% OFF your first course! <span style="opacity: 0.7; font-size: 0.8rem; text-decoration: underline; margin-left: 5px;">Click for details ▾</span></span>
+    </div>
+    
+    <div class="promo-dropdown" id="promoDropdown">
+      <p style="margin-top: 0; color: #9aa4b2; font-size: 0.95rem;">Valid strictly for your first purchase at <strong>Lake Digital</strong>.</p>
+      <div style="background: #0b1624; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); display: inline-flex; align-items: center; gap: 15px;">
+        <span class="promo-code">LAKE230</span>
+        <button id="copyPromoBtn" class="btn btn-primary" style="height: 38px; width: auto; padding: 0 15px;" onclick="copyPromo()">Copy Code</button>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand" style="display: flex; align-items: center; gap: 12px; cursor: pointer;" onclick="window.scrollTo(0,0);">
+        <svg width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="8" fill="#1e3a8a"/>
+          <path d="M10 25C15 25 15 20 20 20C25 20 25 25 30 25" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/>
+          <path d="M10 30C15 30 15 25 20 25C25 25 25 30 30 30" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+          <path d="M12 10V22" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          <path d="M12 22H20" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <span style="font-weight: 800; font-size: 20px; color: white; letter-spacing: -0.5px; text-transform: uppercase;">Lake Digital</span>
+      </div>
+      <nav class="nav">
+        <a href="#courses">Courses</a>
+        <a href="#faq">FAQ</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <h1>Navigate Your Future</h1>
+        <p class="lead">Premium digital education for creators and developers. Dive into knowledge.</p>
+      </div>
+    </section>
+
+    <section id="courses" class="section">
+      <div class="container">
+        <h2 class="section-title">Our Programs</h2>
+        <div class="pricing-grid">
+          
+          <div class="course-card">
+            <h3>Digital Basics</h3>
+            <div class="promo-hint">Use code LAKE230 for 8% OFF</div>
+            <div class="price">€250</div>
+            <ul class="features">
+              <li>Fundamentals of web design (HTML/CSS)</li>
+              <li>Access to digital resource library</li>
+              <li>Comprehensive PDF study guides</li>
+              <li style="color:var(--lake-blue);">Instant digital delivery</li>
+            </ul>
+            <button class="btn btn-primary" onclick="initCheckout('basics')">Get Started</button>
+          </div>
+
+          <div class="course-card featured">
+            <div class="badge">Most Popular</div>
+            <h3>Full Stack Developer</h3>
+            <div class="price">€300</div>
+            <ul class="features">
+              <li>Everything in Digital Basics +</li>
+              <li>JavaScript & React.js fundamentals</li>
+              <li>Backend architecture with Node.js</li>
+              <li style="color:var(--lake-blue);">Lifetime updates included</li>
+            </ul>
+            <button class="btn btn-primary" onclick="initCheckout('pro')">Get Started</button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section alt">
+      <div class="container">
+        <h2 class="section-title">FAQ</h2>
+        <div style="max-width: 800px; margin: 0 auto; text-align: left;">
+          <div style="background: #0b1624; padding: 20px; border-radius: 12px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05);">
+            <h4 style="color: white; margin-top: 0;">How is Lake Digital different?</h4>
+            <p style="color: #9aa4b2; margin: 0;">We focus on structured, high-intensity learning materials that you can keep forever. No subscriptions, no fluff.</p>
+          </div>
+          <div style="background: #0b1624; padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+            <h4 style="color: white; margin-top: 0;">Support contact?</h4>
+            <p style="color: #9aa4b2; margin: 0;">Reach out to us at <span style="color: var(--lake-blue);">lake.digital.admin@gmail.com</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <h2 class="section-title">Contact Support</h2>
+        <p>Email: <a href="mailto:lake.digital.admin@gmail.com" style="font-weight: bold;">lake.digital.admin@gmail.com</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand"><span>Lake Digital</span> © 2026</div>
+        <div class="footer-links">
+          <a href="#" onclick="return false;">Terms and Conditions</a>
+          <span class="separator">|</span>
+          <a href="#" onclick="return false;">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=EUR"></script>
+  <script src="script.js"></script>
+  
+  <script>
+    function copyPromo() {
+      navigator.clipboard.writeText("LAKE230").then(function() {
+        var btn = document.getElementById("copyPromoBtn");
+        btn.innerText = "Copied! ✔";
+        setTimeout(function() { btn.innerText = "Copy Code"; }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
